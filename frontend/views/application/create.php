@@ -11,7 +11,9 @@ use yii\widgets\ActiveForm;
             ['prompt' => 'Выберите город...'])?>
 <?= $form->field($model, 'phoneNumber');?>
 <?= $form->field($model, 'device');?>
-
+<?= $form->field($model, 'discountCard')->radioList($model->getDiscountCard()); ?>
+<?= $form->field($model, 'call')->checkboxList(['0' => 'Yes']);?>
+<?= $form->field($model, 'image')->fileInput();?>
 
     <div class="form-group">
         <?= Html::submitButton('Send', ['class' => 'btn btn-primary'])?>
