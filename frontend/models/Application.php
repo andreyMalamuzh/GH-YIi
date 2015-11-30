@@ -3,6 +3,9 @@
 namespace frontend\models;
 
 use yii\base\Model;
+use Yii;
+use frontend\models\Users;
+use frontend\models\UsersRequest;
 
 class Application extends Model
 {
@@ -15,6 +18,16 @@ class Application extends Model
     public $call;
     public $image;
 
+    public function rules()
+    {
+        return [
+            [['name', 'email', 'phoneNumber','city', 'device', 'discountCard'], 'required'],
+            ['email', 'email'],
+            ['phoneNumber', 'match', 'pattern' => '/^\+?[0-9]{10,12}$/'],
+            ['image', 'image', 'extensions' => ['png', 'jpg', 'gif']],
+        ];
+    }
+
     public function attributeLabels()
     {
         return [
@@ -25,57 +38,21 @@ class Application extends Model
         ];
     }
 
-    public function rules()
+    public function add()
     {
-        return [
-            [['name', 'email', 'phoneNumber','city', 'device', 'discountCard'], 'required'],
-            ['email', 'email'],
-            ['phoneNumber', 'match', 'pattern' => '/^\+?[0-9]{10,12}$/'],
-            ['image', 'image', 'extensions' => ['png', 'jpg', 'gif']],
+        $users = new Users();
+        $usersRequest = new UsersRequest();
 
-        ];
-    }
+        $users->full_name = $this->name;
+        $users->email = $this->email;
+        $users->phone_number = $this->phoneNumber;
+        $users->city = $this->city;
+        $users->save();
 
-    public function getCity()
-    {
-        return [
-            '0' => 'Черкассы',
-            '1' => 'Киев',
-            '2' => 'Полтава',
-            '3' => 'Кривой Рог',
-            '4' => 'Житомир'
-        ];
-    }
-
-    public function getCityLabel($city)
-    {
-        if ($city == 0) {
-            return 'Черкассы';
-        } elseif ($city == 1) {
-            return 'Киев';
-        } elseif ($city == 2) {
-            return 'Полтава';
-        } elseif ($city == 3) {
-            return 'Кривой Рог';
-        } else {
-            return 'Житомир';
-        }
-    }
-
-    public function getDiscountCard()
-    {
-        return [
-            '0' => 'Yes',
-            '1' => 'No'
-        ];
-    }
-
-    public function getDiscountCardLabel($discountCard)
-    {
-        if($discountCard == 0) {
-            return 'Yes';
-        } else {
-            return 'No';
-        }
+        $usersRequest->device = $this->device;
+        $usersRequest->discount_card = $this->discountCard;
+        $usersRequest->allow_to_call = $this->call;
+        $usersRequest->image = $this->image;
+        $usersRequest->save();
     }
 }
