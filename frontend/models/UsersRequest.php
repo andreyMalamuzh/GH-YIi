@@ -48,4 +48,9 @@ class UsersRequest extends ActiveRecord
             'image' => 'Image',
         ];
     }
+
+    public function getUsers()
+    {
+        return $this->hasOne(Users::className(), ['post_id' => 'id']);
+    }
 }

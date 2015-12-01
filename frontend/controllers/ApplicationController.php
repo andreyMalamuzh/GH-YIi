@@ -12,7 +12,10 @@ class ApplicationController extends Controller
     {
         $model = new Application();
 
-        if($model->load(Yii::$app->request->post()) && $model->validate()){
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->add()) {
+                return $this->redirect('/application');
+            }
             return $this->render('view', ['model' => $model]);
         } else {
             return $this->render('create', ['model' => $model]);

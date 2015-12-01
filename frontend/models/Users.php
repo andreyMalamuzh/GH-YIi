@@ -48,4 +48,9 @@ class Users extends ActiveRecord
             'phone_number' => 'Phone Number',
         ];
     }
+
+    public function getUsersRequest()
+    {
+        return $this->hasMany(UsersRequest::className(), ['post_id' => 'id']);
+    }
 }
