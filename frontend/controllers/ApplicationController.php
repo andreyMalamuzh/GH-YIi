@@ -8,12 +8,14 @@ use frontend\models\Application;
 
 class ApplicationController extends Controller
 {
+    public $layout = 'form';
+
     public function actionCreate()
     {
         $model = new Application();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->add()) {
+            if ($model->addUsers() && $model->addUsersRequest()) {
                 return $this->redirect('/application');
             }
             return $this->render('view', ['model' => $model]);

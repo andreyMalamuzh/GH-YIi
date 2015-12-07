@@ -1,0 +1,12 @@
+body {
+    background: url("../image/bg.png");
+}
+
+#w0{
+    width: 600px;
+    margin: auto;
+    border: 1px solid #c3c3c3;
+    padding: 20px;
+    border-radius: 5px;
+    background: #ebebeb;
+}

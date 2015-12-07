@@ -38,16 +38,20 @@ class Application extends Model
         ];
     }
 
-    public function add()
+    public function addUsers()
     {
         $users = new Users();
-        $usersRequest = new UsersRequest();
 
         $users->full_name = $this->name;
         $users->email = $this->email;
         $users->phone_number = $this->phoneNumber;
         $users->city = $this->city;
         $users->save();
+    }
+
+    public function addUsersRequest()
+    {
+        $usersRequest = new UsersRequest();
 
         $usersRequest->device = $this->device;
         $usersRequest->discount_card = $this->discountCard;
