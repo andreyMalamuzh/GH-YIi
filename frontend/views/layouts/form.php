@@ -36,6 +36,7 @@ FormAsset::register($this);
         ],
     ]);
     $menuItems = [
+        ['label' => 'Главная', 'url' => ['/site/index']],
         ['label' => 'Создать заявку', 'url' => ['/application/create']],
     ];
     echo Nav::widget([
