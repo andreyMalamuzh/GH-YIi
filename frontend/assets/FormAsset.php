@@ -13,7 +13,7 @@ class FormAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css'
+        'css/bootstrap.css'
     ];
     public $js = [];
     public $depends = [
