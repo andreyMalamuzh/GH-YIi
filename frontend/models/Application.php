@@ -4,9 +4,6 @@ namespace frontend\models;
 
 use yii\base\Model;
 use Yii;
-use yii\web\UploadedFile;
-use frontend\models\Users;
-use frontend\models\UsersRequest;
 
 class Application extends Model
 {
@@ -17,8 +14,6 @@ class Application extends Model
     public $device;
     public $description;
     public $discountCard;
-    public $call;
-    public $imageFiles;
 
     public function rules()
     {
@@ -26,7 +21,6 @@ class Application extends Model
             [['name', 'email', 'phoneNumber','city', 'device', 'description', 'discountCard'], 'required', 'message' => 'Заполните поле'],
             ['email', 'email', 'message' => 'Некорректный адрес'],
             ['phoneNumber', 'match', 'pattern' => '/^\+?[0-9]{10,12}$/', 'message' => 'Некорректный телефон'],
-            [['imageFiles'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg', 'maxFiles' => 4],
         ];
     }
 
@@ -40,42 +34,44 @@ class Application extends Model
             'device' => 'Устройство:',
             'description' => 'Описание проблемы:',
             'discountCard' => 'Есть скидочная карта?',
-            'call' => 'Связаться по телефону?',
-            'imageFiles' => 'Изображения',
         ];
     }
 
-    public function upload()
+    public function addUser()
     {
-        if ($this->validate()) {
-            foreach ($this->imageFiles as $file) {
-                $file->saveAs('uploads/' . $file->baseName . '.' . $file->extension);
+        if ($this->validate()){
+            $users = new Users();
+
+            $users->full_name = $this->name;
+            $users->email = $this->email;
+            $users->city = $this->city;
+            $users->phone_number = $this->phoneNumber;
+
+            if ($users->save()) {
+                return $users;
             }
-            return true;
-        } else {
-            return false;
         }
+
+        return null;
     }
 
-    public function addUsers()
+    public function addUserRequest()
     {
-        $users = new Users();
+        if ($this->validate()){
+            $usersRequest = new UsersRequest();
 
-        $users->full_name = $this->name;
-        $users->email = $this->email;
-        $users->phone_number = $this->phoneNumber;
-        $users->city = $this->city;
-        $users->save();
+            $usersRequest->device = $this->device;
+            $usersRequest->description = $this->description;
+            $usersRequest->discount_card = $this->discountCard;
+//            $usersRequest->allow_to_call = $this->call;
+//            $usersRequest->image = $this->imageFiles;
+
+            if ($usersRequest->save()) {
+                return $usersRequest;
+            }
+        }
+
+        return null;
     }
 
-    public function addUsersRequest()
-    {
-        $usersRequest = new UsersRequest();
-
-        $usersRequest->device = $this->device;
-        $usersRequest->discount_card = $this->discountCard;
-        $usersRequest->allow_to_call = $this->call;
-        $usersRequest->image = $this->image;
-        $usersRequest->save();
-    }
 }

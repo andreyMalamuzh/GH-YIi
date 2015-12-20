@@ -23,8 +23,7 @@ use yii\widgets\ActiveForm;
 <?= $form->field($model, 'device');?>
 <?= $form->field($model, 'description')->textarea();?>
 <?= $form->field($model, 'discountCard')->radioList(['Yes' => 'Да', 'No' => 'Нет']); ?>
-<?= $form->field($model, 'call')->checkboxList(['Yes' => 'Да']);?>
-<?= $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
+
 
     <div class="form-group ">
         <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary col-xs-offset-2'])?>

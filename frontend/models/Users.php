@@ -21,36 +21,6 @@ class Users extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'users';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['full_name', 'email', 'city', 'phone_number'], 'required'],
-            [['full_name', 'email', 'city', 'phone_number'], 'string', 'max' => 255]
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'full_name' => 'Full Name',
-            'email' => 'Email',
-            'city' => 'City',
-            'phone_number' => 'Phone Number',
-        ];
-    }
-
-    public function getUsersRequest()
-    {
-        return $this->hasMany(UsersRequest::className(), ['post_id' => 'id']);
+        return '{{users}}';
     }
 }

@@ -9,9 +9,8 @@ class m151130_200214_user_request extends Migration
         $this->createTable('{{%request}}', [
             'id' => $this->primaryKey(),
             'device' => $this->string()->notNull(),
+            'description' => $this->string()->notNull(),
             'discount_card' => $this->string()->notNull(),
-            'allow_to_call' => $this->string()->notNull(),
-            'image' => $this->string()->notNull(),
         ]);
     }
 
